@@ -1,0 +1,6 @@
+- Get working with a database wrapper of my choice
+- Swap in texasLAN database
+- confirm it works for basic table
+- rewrite
+- JWT Authentication?
+- registering/sending emails?
