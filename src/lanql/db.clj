@@ -1,4 +1,4 @@
-(ns clojure-game-geek.db
+(ns lanql.db
   (:require
     [clojure.edn :as edn]
     [clojure.java.io :as io]
@@ -19,7 +19,7 @@
 ;;  (stop [this]
 ;;    (assoc this :data nil)))
 
-(defrecord ClojureGameGeekDb [conn]
+(defrecord LanDb [conn]
 
   component/Lifecycle
 
@@ -27,9 +27,8 @@
     (assoc this
            :conn {:dbtype "postgresql"
                    :host "localhost"
-                   :dbname "cggdb"
-                   :user "cgg_role"
-                   :password "lacinia"
+                   :dbname "postgres"
+                   :user "postgres"
                    :port 25432}))
 
   (stop [this]
@@ -37,7 +36,7 @@
 
 (defn new-db
   []
-  {:db (map->ClojureGameGeekDb {})})
+  {:db (map->LanDb {})})
 
 ;;(defn find-game-by-id
 ;;  [db game-id]
@@ -52,8 +51,7 @@
   [component game-id]
   (-> (jdbc/query (:conn component)
                   (sql/format {:select [:*]
-                               :from [:board_game]
-                               :where [:= :game_id game-id]}))
+                               :from [:users_user]}))
       first))
 
 

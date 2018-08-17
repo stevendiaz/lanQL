@@ -1,9 +1,9 @@
-(ns clojure-game-geek.system
+(ns lanql.system
   (:require
     [com.stuartsierra.component :as component]
-    [clojure-game-geek.schema :as schema]
-    [clojure-game-geek.server :as server]
-    [clojure-game-geek.db :as db]))
+    [lanql.schema :as schema]
+    [lanql.server :as server]
+    [lanql.db :as db]))
 
 (defn new-system
   []

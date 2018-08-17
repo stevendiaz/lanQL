@@ -1,4 +1,4 @@
-(ns clojure-game-geek.schema
+(ns lanql.schema
   "Contains custom resolvers and a function to provide the full schema."
   (:require
     [clojure.java.io :as io]
@@ -6,7 +6,7 @@
     [com.walmartlabs.lacinia.schema :as schema]
     [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
     [com.stuartsierra.component :as component]
-    [clojure-game-geek.db :as db]
+    [lanql.db :as db]
     [clojure.edn :as edn]))
 
 (defn game-by-id

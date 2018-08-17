@@ -2,8 +2,9 @@
   (:require
     [com.walmartlabs.lacinia :as lacinia]
     [clojure.java.browse :refer [browse-url]]
-    [clojure-game-geek.system :as system]
+    [lanql.system :as system]
     [clojure.walk :as walk]
+    [clojure.java.jdbc :as j]
     [com.stuartsierra.component :as component])
   (:import (clojure.lang IPersistentMap)))
 
@@ -44,4 +45,10 @@
   []
   (alter-var-root #'system component/stop-system)
   :stopped)
+
+(def pg-db {:dbtype "postgresql"
+            :dbname "postgres"
+            :host "localhost"
+            :user "postgres"
+            :port 25432})
 

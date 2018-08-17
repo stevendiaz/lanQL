@@ -1,4 +1,4 @@
-(ns clojure-game-geek.server
+(ns lanql.server
   (:require [com.stuartsierra.component :as component]
             [com.walmartlabs.lacinia.pedestal :as lp]
             [io.pedestal.http :as http]))
