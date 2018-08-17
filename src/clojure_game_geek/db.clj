@@ -2,33 +2,60 @@
   (:require
     [clojure.edn :as edn]
     [clojure.java.io :as io]
-    [com.stuartsierra.component :as component]))
+    [com.stuartsierra.component :as component]
+		[clojure.java.jdbc :as jdbc]
+		[honeysql.core :as sql]))
 
-(defrecord ClojureGameGeekDb [data]
+;;(defrecord ClojureGameGeekDb [data]
+;;
+;;  component/Lifecycle
+;;
+;;  (start [this]
+;;   (assoc this :data (-> (io/resource "cgg-data.edn")
+;;                          slurp
+;;                          edn/read-string
+;;                          atom)))
+;;
+;;  (stop [this]
+;;    (assoc this :data nil)))
+
+(defrecord ClojureGameGeekDb [conn]
 
   component/Lifecycle
 
   (start [this]
-    (assoc this :data (-> (io/resource "cgg-data.edn")
-                          slurp
-                          edn/read-string
-                          atom)))
+    (assoc this
+           :conn {:dbtype "postgresql"
+                   :host "localhost"
+                   :dbname "cggdb"
+                   :user "cgg_role"
+                   :password "lacinia"
+                   :port 25432}))
 
   (stop [this]
-    (assoc this :data nil)))
+    (assoc this :conn nil)))
 
 (defn new-db
   []
   {:db (map->ClojureGameGeekDb {})})
 
+;;(defn find-game-by-id
+;;  [db game-id]
+;;  (->> db
+;;       :data
+;;       deref
+;;       :games
+;;       (filter #(= (str game-id) (:id %)))
+;;       first))
+
 (defn find-game-by-id
-  [db game-id]
-  (->> db
-       :data
-       deref
-       :games
-       (filter #(= (str game-id) (:id %)))
-       first))
+  [component game-id]
+  (-> (jdbc/query (:conn component)
+                  (sql/format {:select [:*]
+                               :from [:board_game]
+                               :where [:= :game_id game-id]}))
+      first))
+
 
 (defn find-member-by-id
   [db member-id]
