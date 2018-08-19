@@ -3,8 +3,9 @@
     [clojure.edn :as edn]
     [clojure.java.io :as io]
     [com.stuartsierra.component :as component]
-		[clojure.java.jdbc :as jdbc]
-		[honeysql.core :as sql]))
+    [clojure.java.jdbc :as jdbc]
+    [honeysql.helpers :refer :all :as helpers]
+    [honeysql.core :as sql]))
 
 (defrecord LanDb [conn]
 
@@ -25,11 +26,21 @@
   []
   {:db (map->LanDb {})})
 
+(defn list-semesters-for-user
+  [component user-id]
+  (jdbc/query
+    (:conn component)
+    (-> (select :s.semester)
+        (from [:users_user_active_semesters :u])
+        (join [:semester :s] [:= :u.activesemester_id :s.id])
+        (where := :u.user_id user-id)
+        sql/format)))
+
 (defn find-user-by-id
   [component user-id]
-  (-> (jdbc/query
-        (:conn component)
-        (sql/format {:select [:*]
-                     :from [:users_user]
-                     :where [:= :id user-id]}))
-      first))
+  (first (jdbc/query
+           (:conn component)
+           (sql/format {:select [:*]
+                        :from [:users_user]
+                        :where [:= :id user-id]}))))
+

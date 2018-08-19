@@ -14,10 +14,16 @@
   (fn [_ args _]
     (db/find-user-by-id db (:id args))))
 
+(defn user-active-semesters
+  [db]
+  (fn [_ _ user]
+    (db/list-semesters-for-user db (:id user))))
+
 (defn resolver-map
   [component]
   (let [db (:db component)]
-    {:query/user-by-id (user-by-id db)}))
+    {:query/user-by-id (user-by-id db)
+     :User/active-semesters (user-active-semesters db)}))
 
 (defn load-schema
   [component]

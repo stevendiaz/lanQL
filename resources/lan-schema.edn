@@ -98,7 +98,8 @@
     :gender {:type (non-null String)}
     :phone_number {:type (non-null String)}
     :lan_class {:type String}
-    :active_semesters {:type (list :Semester)}
+    :active_semesters {:type (list :Semester)
+                       :resolve :User/active-semesters}
     :events_attended {:type (list :Event)}}}}
 
   :queries
