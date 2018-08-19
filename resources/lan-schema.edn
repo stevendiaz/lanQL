@@ -1,0 +1,128 @@
+{:objects
+ {:AccountEmailAddress
+  {:description "An email associated with a user"
+   :fields
+   {:id {:type (non-null Int)}
+    :email {:type (non-null String)}
+    :verified {:type (non-null Boolean)}
+    :primary {:type (non-null Boolean)}
+    :user_id {:type (non-null Integer)}}}
+
+  :AccountEmailConfirmation
+  {:description "An email confirmation for a user's email"
+   :fields
+   {:id {:type (non-null Int)}
+    :created {:type (non-null TimeStamp)}
+    :sent {:type TimeStamp}
+    :key {:type (non-null String)}
+    :email_address_id {:type (non-null Int)}}}
+
+  :Application
+  {:description "An application for a rushee"
+   :fields
+   {:id {:type (non-null Int)}
+    :question_1 {:type String}
+    :question_2 {:type String}
+    :question_3 {:type String}
+    :question_4 {:type String}
+    :question_5 {:type String}
+    :question_6 {:type String}
+    :question_7 {:type String}
+    :applicant_user_id {:type (non-null Int)}
+    :is_submitted {:type (non-null Int)}}}
+
+  :ApplicationReview
+  {:description "A review for an application"
+   :fields
+   {:id {:type (non-null Int)}
+    :comment {:type String}
+    :rating {:type Int}
+    :application_id {:type Int}
+    :review_user_id {:type Int}}}
+
+  :SuggestionBoxComment
+  {:description "A suggestion box comment"
+   :fields
+   {:id {:type (non-null Int)}
+    :message {:type String}
+    :is_open {:type (non-null Boolean)}}}
+
+  :Event
+  {:description "A LAN event"
+   :fields
+   {:id {:type (non-null Int)}
+    :start_time {:type (non-null TimeStamp)}
+    :end_time {:type (non-null TimeStamp)}
+    :title {:type (non-null String)}
+    :location {:type (non-null String)}
+    :description {:type String}
+    :image_url {:type (non-null String)}
+    :created_on {:type (non-null TimeStamp)}
+    :creator_id {:type Int}
+    :presented_by {:type String}
+    :speaker {:type String}
+    :text {:type String}
+    :attendees {:type (list :User)}
+    :event_tags {:type (list :EventTags)}}}
+
+  :EventTag
+  {:description "Tag for an event"
+   :fields
+   {:id {:type (non-null Int)}
+    :name {:type (non-null String)}}}
+
+  :Semester
+  {:description "A calendar university semester"
+   :fields
+   {:id {:type (non-null Int)}
+    :semester {:type (non-null String)}}}
+
+  :User
+  {:description "A user"
+   :fields
+   {:id {:type (non-null Int)}
+    :password {:type (non-null String)}
+    :last_login {:type TimeStamp}
+    :is_superuser {:type (non-null Boolean)}
+    :username {:type (non-null String)}
+    :first_name {:type (non-null String)}
+    :last_name {:type (non-null String)}
+    :email {:type (non-null String)}
+    :is_staff {:type (non-null Boolean)}
+    :is_active {:type (non-null Boolean)}
+    :date_joined {:type (non-null TimeStamp)}
+    :full_name {:type (non-null String)}
+    :nick_name {:type (non-null String)}
+    :graduation_date {:type (non-null TimeStamp)}
+    :concentration {:type (non-null String)}
+    :gender {:type (non-null String)}
+    :phone_number {:type (non-null String)}
+    :lan_class {:type String}
+    :active_semesters {:type (list :Semester)}
+    :events_attended {:type (list :Event)}}
+
+  :UserGroup
+  {:description "A users user groups"
+   :fields
+   {}}
+
+  :UserPermissions
+  {:description "A users user permissions"
+   :fields
+   {}}
+
+  :VotingCandidate
+  {:description "A candidate for election"
+   :fields
+   {}}
+
+  :VoteBallot
+  {:description "A vote ticket for multiple candidates"
+   :fields
+   {}}
+
+  :VoteStatus
+  {:description "The status of a vote"
+   :fields
+   {}}}}
+
