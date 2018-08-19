@@ -76,7 +76,7 @@
   (fn [_ _ game-rating]
     (db/find-game-by-id db (:game_id game-rating))))
 
-(defn resolver-map
+(defn resolver-mapp
   [component]
   (let [db (:db component)]
     {:query/game-by-id (game-by-id db)
@@ -88,9 +88,19 @@
      :Designer/games (designer-games db)
      :Member/ratings (member-ratings db)}))
 
+(defn user-by-id
+  [db]
+  (fn [_ args _]
+    (db/find-user-by-id db (:id args))))
+
+(defn resolver-map
+  [component]
+  (let [db (:db component)]
+    {:query/user-by-id (user-by-id db)}))
+
 (defn load-schema
   [component]
-  (-> (io/resource "cgg-schema.edn")
+  (-> (io/resource "lan-schema.edn")
       slurp
       edn/read-string
       (util/attach-resolvers (resolver-map component))

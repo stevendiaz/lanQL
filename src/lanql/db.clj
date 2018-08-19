@@ -6,19 +6,6 @@
 		[clojure.java.jdbc :as jdbc]
 		[honeysql.core :as sql]))
 
-;;(defrecord ClojureGameGeekDb [data]
-;;
-;;  component/Lifecycle
-;;
-;;  (start [this]
-;;   (assoc this :data (-> (io/resource "cgg-data.edn")
-;;                          slurp
-;;                          edn/read-string
-;;                          atom)))
-;;
-;;  (stop [this]
-;;    (assoc this :data nil)))
-
 (defrecord LanDb [conn]
 
   component/Lifecycle
@@ -38,20 +25,22 @@
   []
   {:db (map->LanDb {})})
 
-;;(defn find-game-by-id
-;;  [db game-id]
-;;  (->> db
-;;       :data
-;;       deref
-;;       :games
-;;       (filter #(= (str game-id) (:id %)))
-;;       first))
-
 (defn find-game-by-id
-  [component game-id]
-  (-> (jdbc/query (:conn component)
-                  (sql/format {:select [:*]
-                               :from [:users_user]}))
+  [db game-id]
+  (->> db
+       :data
+       deref
+       :games
+       (filter #(= (str game-id) (:id %)))
+       first))
+
+(defn find-user-by-id
+  [component user-id]
+  (-> (jdbc/query
+        (:conn component)
+        (sql/format {:select [:*]
+                     :from [:users_user]
+                     :where [:= :id user-id]}))
       first))
 
 

@@ -6,14 +6,14 @@
     :email {:type (non-null String)}
     :verified {:type (non-null Boolean)}
     :primary {:type (non-null Boolean)}
-    :user_id {:type (non-null Integer)}}}
+    :user_id {:type (non-null Int)}}}
 
   :AccountEmailConfirmation
   {:description "An email confirmation for a user's email"
    :fields
    {:id {:type (non-null Int)}
-    :created {:type (non-null TimeStamp)}
-    :sent {:type TimeStamp}
+    :created {:type (non-null String)}
+    :sent {:type String}
     :key {:type (non-null String)}
     :email_address_id {:type (non-null Int)}}}
 
@@ -51,19 +51,19 @@
   {:description "A LAN event"
    :fields
    {:id {:type (non-null Int)}
-    :start_time {:type (non-null TimeStamp)}
-    :end_time {:type (non-null TimeStamp)}
+    :start_time {:type (non-null String)}
+    :end_time {:type (non-null String)}
     :title {:type (non-null String)}
     :location {:type (non-null String)}
     :description {:type String}
     :image_url {:type (non-null String)}
-    :created_on {:type (non-null TimeStamp)}
+    :created_on {:type (non-null String)}
     :creator_id {:type Int}
     :presented_by {:type String}
     :speaker {:type String}
     :text {:type String}
     :attendees {:type (list :User)}
-    :event_tags {:type (list :EventTags)}}}
+    :event_tags {:type (list :EventTag)}}}
 
   :EventTag
   {:description "Tag for an event"
@@ -82,7 +82,7 @@
    :fields
    {:id {:type (non-null Int)}
     :password {:type (non-null String)}
-    :last_login {:type TimeStamp}
+    :last_login {:type String}
     :is_superuser {:type (non-null Boolean)}
     :username {:type (non-null String)}
     :first_name {:type (non-null String)}
@@ -90,39 +90,21 @@
     :email {:type (non-null String)}
     :is_staff {:type (non-null Boolean)}
     :is_active {:type (non-null Boolean)}
-    :date_joined {:type (non-null TimeStamp)}
+    :date_joined {:type (non-null String)}
     :full_name {:type (non-null String)}
     :nick_name {:type (non-null String)}
-    :graduation_date {:type (non-null TimeStamp)}
+    :graduation_date {:type (non-null String)}
     :concentration {:type (non-null String)}
     :gender {:type (non-null String)}
     :phone_number {:type (non-null String)}
     :lan_class {:type String}
     :active_semesters {:type (list :Semester)}
-    :events_attended {:type (list :Event)}}
+    :events_attended {:type (list :Event)}}}}
 
-  :UserGroup
-  {:description "A users user groups"
-   :fields
-   {}}
-
-  :UserPermissions
-  {:description "A users user permissions"
-   :fields
-   {}}
-
-  :VotingCandidate
-  {:description "A candidate for election"
-   :fields
-   {}}
-
-  :VoteBallot
-  {:description "A vote ticket for multiple candidates"
-   :fields
-   {}}
-
-  :VoteStatus
-  {:description "The status of a vote"
-   :fields
-   {}}}}
+  :queries
+  {:user_by_id
+   {:type :User
+    :args
+    {:id {:type (non-null Int)}}
+    :resolve :query/user-by-id}}}
 
