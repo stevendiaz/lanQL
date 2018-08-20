@@ -26,6 +26,16 @@
   []
   {:db (map->LanDb {})})
 
+(defn list-events-for-user
+  [component user-id]
+  (jdbc/query
+    (:conn component)
+    (-> (select :*)
+        (from [:events_event_attendees :attendees])
+        (join [:events_event :events] [:= :attendees.event_id :events.id])
+        (where := :attendees.user_id user-id)
+        sql/format)))
+
 (defn list-semesters-for-user
   [component user-id]
   (jdbc/query

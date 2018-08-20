@@ -100,7 +100,8 @@
     :lan_class {:type String}
     :active_semesters {:type (list :Semester)
                        :resolve :User/active-semesters}
-    :events_attended {:type (list :Event)}}}}
+    :events_attended {:type (list :Event)
+                      :resolve :User/events-attended}}}}
 
   :queries
   {:user_by_id

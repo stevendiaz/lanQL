@@ -19,11 +19,17 @@
   (fn [_ _ user]
     (db/list-semesters-for-user db (:id user))))
 
+(defn user-events-attended
+  [db]
+  (fn [_ _ user]
+    (db/list-events-for-user db (:id user))))
+
 (defn resolver-map
   [component]
   (let [db (:db component)]
     {:query/user-by-id (user-by-id db)
-     :User/active-semesters (user-active-semesters db)}))
+     :User/active-semesters (user-active-semesters db)
+     :User/events-attended (user-events-attended db)}))
 
 (defn load-schema
   [component]
