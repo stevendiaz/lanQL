@@ -108,5 +108,10 @@
    {:type :User
     :args
     {:id {:type (non-null Int)}}
-    :resolve :query/user-by-id}}}
+    :resolve :query/user-by-id}
+
+   :applications
+   {:type :Semester
+    :args {}
+    :resolve :query/applications}}}
 

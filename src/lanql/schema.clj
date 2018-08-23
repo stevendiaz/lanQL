@@ -24,11 +24,17 @@
   (fn [_ _ user]
     (db/list-events-for-user (:id user))))
 
+(defn all-applications
+  []
+  (fn [_ _ _]
+    (db/list-all-applications)))
+
 (defn resolver-map
   []
   {:query/user-by-id (user-by-id)
    :User/active-semesters (user-active-semesters)
-   :User/events-attended (user-events-attended)})
+   :User/events-attended (user-events-attended)
+   :query/applications (all-applications)})
 
 (defn load-schema
   []
@@ -50,6 +56,5 @@
 
 (defn new-schema-provider
   []
-  {:schema-provider (-> {}
-                        map->SchemaProvider
-                        (component/using [:db]))})
+  {:schema-provider (map->SchemaProvider {})})
+

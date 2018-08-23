@@ -14,10 +14,6 @@
    :user "postgres"
    :port 25432})
 
-(defn new-db
-  []
-  {:db (map->LanDb {})})
-
 (defn list-events-for-user
   [user-id]
   (jdbc/query
@@ -46,3 +42,10 @@
                         :from [:users_user]
                         :where [:= :id user-id]}))))
 
+(defn list-all-applications
+  []
+  (jdbc/query
+    db-config
+    (-> (select :*)
+        (from [:application_applications])
+        (sql/format))))

@@ -9,5 +9,4 @@
   []
   (merge (component/system-map)
          (server/new-server)
-         (schema/new-schema-provider)
-         (db/new-db)))
+         (schema/new-schema-provider)))
