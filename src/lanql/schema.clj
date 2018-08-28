@@ -29,12 +29,18 @@
   (fn [_ _ _]
     (db/list-all-applications)))
 
+(defn application-reviews
+  []
+  (fn [_ _ semester]
+    (db/list-application-reviews (:id semester))))
+
 (defn resolver-map
   []
   {:query/user-by-id (user-by-id)
    :User/active-semesters (user-active-semesters)
    :User/events-attended (user-events-attended)
-   :query/applications (all-applications)})
+   :query/applications (all-applications)
+   :Application/reviews (application-reviews)})
 
 (defn load-schema
   []

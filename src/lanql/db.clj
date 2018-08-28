@@ -4,7 +4,7 @@
     [clojure.java.io :as io]
     [com.stuartsierra.component :as component]
     [clojure.java.jdbc :as jdbc]
-    [honeysql.helpers :refer :all :as helpers]
+    [honeysql.helpers :refer [select from join where limit]]
     [honeysql.core :as sql]))
 
 (def db-config
@@ -36,11 +36,12 @@
 
 (defn find-user-by-id
   [user-id]
-  (first (jdbc/query
-           db-config
-           (sql/format {:select [:*]
-                        :from [:users_user]
-                        :where [:= :id user-id]}))))
+  (jdbc/query
+    db-config
+    (-> (select :*)
+        (from :users_user)
+        (where := :id user-id)
+        (limit 1))))
 
 (defn list-all-applications
   []
@@ -49,3 +50,12 @@
     (-> (select :*)
         (from [:application_applications])
         (sql/format))))
+
+(defn list-application-reviews
+  [semester-id]
+  (jdbc/query
+    db-config
+    (-> (select :*)
+        (from :application_reviews)
+        (where := :semester_id semester-id))))
+

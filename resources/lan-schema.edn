@@ -29,7 +29,9 @@
     :question_6 {:type String}
     :question_7 {:type String}
     :applicant_user_id {:type (non-null Int)}
-    :is_submitted {:type (non-null Int)}}}
+    :is_submitted {:type (non-null Int)}
+    :reviews {:type (list :ApplicationReview)
+              :resolve :Application/reviews}}}
 
   :ApplicationReview
   {:description "A review for an application"
