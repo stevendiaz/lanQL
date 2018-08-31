@@ -14,6 +14,14 @@
    :user "postgres"
    :port 25432})
 
+(defn insert-user
+  [user]
+  (jdbc/insert! db-config :users_user user))
+
+(defn delete-user-by-id
+  [user-id]
+  (jdbc/delete-rows :users_user ["id=?" user-id]))
+
 (defn list-events-for-user
   [user-id]
   (jdbc/query

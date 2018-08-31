@@ -1,0 +1,17 @@
+{:user
+ {:password "password hash"
+  :is_superuser false
+  :username "testuser"
+  :first_name "firstname"
+  :last_name "lastname"
+  :email "test@testuser.com"
+  :is_staff false
+  :is_active false
+  :date_joined "2018-08-31T00:00:00Z"
+  :full_name "firstname lastname"
+  :nick_name "pls deprecate"
+  :graduation_date "2018-08-31T00:00:00Z"
+  :concentration "CS"
+  :gender "O"
+  :phone_number "713666TOFU"}}
+

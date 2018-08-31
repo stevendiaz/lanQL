@@ -12,4 +12,6 @@
                  [com.walmartlabs/lacinia-pedestal "0.7.0"]
                  [alaisi/postgres.async "0.8.0"]
                  [io.aviso/logging "0.2.0"]
+                 [factory-time "0.1.2"]
+                 [clj-time "0.14.4"]
                  [honeysql "0.9.3"]])
