@@ -20,7 +20,7 @@
 
 (defn delete-user-by-id
   [user-id]
-  (jdbc/delete-rows :users_user ["id=?" user-id]))
+  (jdbc/delete! db-config :users_user ["id = ?" user-id]))
 
 (defn list-events-for-user
   [user-id]
@@ -44,12 +44,9 @@
 
 (defn find-user-by-id
   [user-id]
-  (jdbc/query
-    db-config
-    (-> (select :*)
-        (from :users_user)
-        (where := :id user-id)
-        (limit 1))))
+  (first (jdbc/query db-config (sql/format {:select [:*]
+                                            :from [:users_user]
+                                            :where [:= :id user-id]}))))
 
 (defn list-all-applications
   []

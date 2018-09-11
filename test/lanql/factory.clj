@@ -16,7 +16,7 @@
 
 (defn save-user!
   [user]
-  (db/insert-user user))
+  (first (db/insert-user user)))
 
 (deffactory :user (:user base-factories)
   :create! save-user!)
