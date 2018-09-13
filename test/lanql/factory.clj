@@ -21,3 +21,10 @@
 (deffactory :user (:user base-factories)
   :create! save-user!)
 
+(defn save-application!
+  [application]
+  (first (db/insert-application application)))
+
+(deffactory :application (:application base-factories)
+  :generator {:id (fn [n] n) }
+  :create! save-application!)

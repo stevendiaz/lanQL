@@ -1,7 +1,7 @@
 {:user
  {:password "password hash"
   :is_superuser false
-  :username "testuser"
+  :username "username_test"
   :first_name "firstname"
   :last_name "lastname"
   :email "test@testuser.com"
@@ -13,5 +13,14 @@
   :graduation_date "2018-08-31T00:00:00Z"
   :concentration "CS"
   :gender "O"
-  :phone_number "713666TOFU"}}
+  :phone_number "713666TOFU"}
+ :application
+ {:question_1 "Why do you want to rush Lambda Alpha Nu?"
+  :question_2 "Talk about yourself in a couple of sentences."
+  :question_3 "What is your major and why did you choose it?"
+  :question_4 "What do you do in your spare time?"
+  :question_5 "Talk about a current event in technology and why it interests you."
+  :question_6 "Impress us"
+  :question_7 "If you were to work on a personal project this semester that you could put on your resume, what would it be?"
+  :is_submitted false }}
 

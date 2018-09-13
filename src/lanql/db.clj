@@ -52,9 +52,8 @@
   []
   (jdbc/query
     db-config
-    (-> (select :*)
-        (from [:application_applications])
-        (sql/format))))
+    (sql/format {:select [:*]
+                 :from [:applications_application]})))
 
 (defn list-application-reviews
   [semester-id]
@@ -63,4 +62,12 @@
     (-> (select :*)
         (from :application_reviews)
         (where := :semester_id semester-id))))
+
+(defn insert-application
+  [application]
+  (jdbc/insert! db-config :applications_application application))
+
+(defn delete-application-by-id
+  [application-id]
+  (jdbc/delete! db-config :applications_application ["id = ?" application-id]))
 

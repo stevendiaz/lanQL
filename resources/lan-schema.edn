@@ -113,7 +113,7 @@
     :resolve :query/user-by-id}
 
    :applications
-   {:type :Semester
+   {:type (list :Application)
     :args {}
     :resolve :query/applications}}}
 
