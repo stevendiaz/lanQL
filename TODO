@@ -1,7 +1,0 @@
-✅ Get working with a database wrapper of my choice
-✅ Swap in texasLAN database
-✅c confirm it works for basic table
-- rewrite
-- JWT Authentication?
-- registering/sending emails?
-- db.clj probably doesn't need to be a stateful component anymore without the postgres async/open db connection
