@@ -22,11 +22,18 @@
   (testing "Query all applications"
     (let [user (create! :user {:id 9999 })
           application (create! :application { :applicant_user_id (:id user) })
-          response (:data (query-test "{ applications { applicant_user_id question_1}}"))
-          applications (:applications response)]
-      (is (= (:applicant_user_id (first applications)) (:id user)))
-      (is (= (:question_1 (first applications)) "Why do you want to rush Lambda Alpha Nu?"))
+          response (:data (query-test "{ applications { applicant_user_id question_1}}"))]
+      (is (= (:id user) (-> response :applications first :applicant_user_id)))
+      (is (= "Why do you want to rush Lambda Alpha Nu?" (-> response :applications first :question_1)))
       (db/delete-application-by-id (:id application))
+      (db/delete-user-by-id (:id user))))
+  (testing "Query active semesters for a user"
+    (let [semester (create! :semester {:semester "Fall 2018"})
+          user (create! :user {:id 9999 :semesters [semester]})
+          response (:data (query-test "{ user_by_id(id: 9999) { active_semesters { semester }}}"))]
+      (is (= "Fall 2018" (-> response :user_by_id :active_semesters first :semester)))
+      (db/dissoc-user-and-semester (:id user) (:id semester))
+      (db/delete-semester-by-id (:id semester))
       (db/delete-user-by-id (:id user)))))
 
 (defn setup []

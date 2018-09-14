@@ -15,8 +15,11 @@
       parse-datetimes))
 
 (defn save-user!
-  [user]
-  (first (db/insert-user user)))
+  [user-map]
+  (let [user (first (db/insert-user (dissoc user-map :semesters)))
+        semesters (:semesters user-map)
+        _ (doall (map #(db/assoc-user-and-semester (:id user) (:id %)) semesters))]
+    user))
 
 (deffactory :user (:user base-factories)
   :create! save-user!)
@@ -28,3 +31,11 @@
 (deffactory :application (:application base-factories)
   :generator {:id (fn [n] n) }
   :create! save-application!)
+
+(defn save-semester!
+  [semester]
+  (first (db/insert-semester semester)))
+
+(deffactory :semester (:semester base-factories)
+  :generator {:id (fn [n] n) }
+  :create! save-semester!)

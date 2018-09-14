@@ -22,5 +22,7 @@
   :question_5 "Talk about a current event in technology and why it interests you."
   :question_6 "Impress us"
   :question_7 "If you were to work on a personal project this semester that you could put on your resume, what would it be?"
-  :is_submitted false }}
+  :is_submitted false }
+ :semester
+ {:semester "F18"}}
 

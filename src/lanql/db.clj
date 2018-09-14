@@ -71,3 +71,18 @@
   [application-id]
   (jdbc/delete! db-config :applications_application ["id = ?" application-id]))
 
+(defn insert-semester
+  [semester]
+  (jdbc/insert! db-config :semester semester))
+
+(defn delete-semester-by-id
+  [semester-id]
+  (jdbc/delete! db-config :semester ["id = ?" semester-id]))
+
+(defn assoc-user-and-semester
+  [user-id semester-id]
+  (jdbc/insert! db-config :users_user_active_semesters {:user_id user-id :activesemester_id semester-id}))
+
+(defn dissoc-user-and-semester
+  [user-id semester-id]
+  (jdbc/delete! db-config :users_user_active_semesters ["user_id = ? and activesemester_id = ?" user-id semester-id]))
